@@ -14,24 +14,21 @@ const UserRoute = require("./Routes/UserRouts");
 const isLogin = require("./middleware/Authentication/auth");
 
 // Config All Security Middleware
+const allowOrigins = ["https://jonayed.me", "http://localhost:3000"];
 app.use(
   cors({
-    origin: "https://jonayed.me",
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      if (allowOrigins.indexOf(origin === -1)) {
+        let message = `The CORS policy for this application access from origin ${origin}`;
+        return cb(new Error(message), false);
+      }
+      return cb(null, true);
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
 );
-
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-  })
-);
-
-
 
 app.use(halmet());
 app.use(hpp());
