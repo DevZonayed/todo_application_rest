@@ -14,7 +14,13 @@ const UserRoute = require("./Routes/UserRouts");
 const isLogin = require("./middleware/Authentication/auth");
 
 // Config All Security Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://jonayed.me",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(halmet());
 app.use(hpp());
 
