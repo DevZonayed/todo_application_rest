@@ -14,17 +14,9 @@ const UserRoute = require("./Routes/UserRouts");
 const isLogin = require("./middleware/Authentication/auth");
 
 // Config All Security Middleware
-const allowOrigins = ["https://jonayed.me", "http://localhost:3000"];
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin) return cb(null, true);
-      if (allowOrigins.indexOf(origin === -1)) {
-        let message = `The CORS policy for this application access from origin ${origin}`;
-        return cb(new Error(message), false);
-      }
-      return cb(null, true);
-    },
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
